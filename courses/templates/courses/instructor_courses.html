@@ -1,0 +1,25 @@
+{% extends "courses/base.html" %}
+
+{% block title %}My Courses{% endblock %}
+
+{% block content %}
+<h2>My Courses</h2>
+<a href="{% url 'create_course' %}" class="btn btn-success mb-3">+ Add New Course</a>
+
+<ul class="list-group">
+    {% for course in courses %}
+        <li class="list-group-item">
+            <strong>{{ course.title }}</strong> - ₹{{ course.price }}
+            <br>
+            <small>{{ course.description }}</small>
+            <div class="float-end">
+                <a href="{% url 'course_students' course.id %}" class="btn btn-info btn-sm">View Students</a>
+                <a href="{% url 'edit_course' course.id %}" class="btn btn-warning btn-sm">Edit</a>
+            </div>
+        </li>
+    {% empty %}
+        <li class="list-group-item">No courses yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

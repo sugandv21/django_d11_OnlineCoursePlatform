@@ -1,0 +1,22 @@
+{% extends "courses/base.html" %}
+{% block title %}Enrolled Students{% endblock %}
+
+{% block content %}
+<h2>Students Enrolled in {{ course.title }}</h2>
+
+<ul class="list-group">
+    {% for enrollment in enrollments %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ enrollment.student.user.username }}
+            <a href="{% url 'delete_student' enrollment.student.id %}" 
+               class="btn btn-danger btn-sm"
+               onclick="return confirm('Are you sure you want to delete this student? This will also remove their progress and enrollments.');">
+               Delete
+            </a>
+        </li>
+    {% empty %}
+        <li class="list-group-item">No students enrolled yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
+

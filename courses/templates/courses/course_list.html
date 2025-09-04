@@ -1,0 +1,30 @@
+{% extends "courses/base.html" %}
+
+{% block title %}Courses{% endblock %}
+
+{% block content %}
+<h2>Available Courses</h2>
+
+<div class="row">
+    {% for course in courses %}
+        <div class="col-md-4">
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.title }}</h5>
+                    <p class="card-text">{{ course.description }}</p>
+                    <p><strong>Price:</strong> ₹{{ course.price }}</p>
+                    <p><strong>Instructor:</strong> {{ course.instructor.user.username }}</p>
+
+                    {% if user.role == "student" %}
+                        {% if course.id in enrolled %}
+                            <button class="btn btn-success" disabled>Enrolled</button>
+                        {% else %}
+                            <a href="{% url 'enroll_course' course.id %}" class="btn btn-primary">Enroll</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "courses/base.html" %}
+
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2>Welcome, {{ request.user.username }}!</h2>
+
+{% if request.user.role == "student" %}
+    <p>You are a <strong>Student</strong>. Profile: {{ request.user.studentprofile }}</p>
+{% elif request.user.role == "instructor" %}
+    <p>You are an <strong>Instructor</strong>. Profile: {{ request.user.instructorprofile }}</p>
+{% endif %}
+{% endblock %}
